@@ -31,8 +31,8 @@ function createGitHubIssues() {
   });
   issues.map((issue) => {
     const { ownerName, repoName, title, priority, duty, body1, body2, body3, issueNumber, status } = issue;
-    // Skip if the status is 'done'
-    if (status === 'done') return;
+    // Skip if the issue.status is 'done' or 'pending'
+    if (status === 'done' || status === 'pending') return;
     // Create GitHub Issue
     if (ownerName && repoName && title && body1) {
       const repoUrl = `https://github.com/${ownerName}/${repoName}.git`;
@@ -81,6 +81,7 @@ function createGitHubIssues() {
       }
       // Wait for 6 seconds to avoid rate limiting
       Utilities.sleep(6000);
+      return;
     }
   });
 
