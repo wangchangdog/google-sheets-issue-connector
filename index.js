@@ -1,5 +1,5 @@
-const GITHUB_API_BASE_URL = 'https://api.github.com/repos';
 const GITHUB_PERSONAL_ACCESS_TOKEN ='';
+const GITHUB_API_BASE_URL = 'https://api.github.com/repos';
 const GOOGLE_SHEETS_SHEET_NAME='Sheet1'
 
 // Google Apps Script
@@ -30,7 +30,7 @@ function createGitHubIssues() {
     }, {});
   });
   issues.map((issue) => {
-    const { ownerName, repoName, title, priority, duty, body1, body2, body3, issueNumber, status } = issue;
+    const { ownerName, repoName, title, priority, duty, body1, body2, body3, issueNumber, status, assignees } = issue;
     // Skip if the issue.status is 'done' or 'pending'
     if (status === 'done' || status === 'pending') return;
     // Create GitHub Issue
@@ -66,6 +66,7 @@ function createGitHubIssues() {
         title: issueTitle,
         body,
         labels,
+        assignees,
       });
       // issueNumberがない場合、新しいissueNumberを取得
       if (!issueNumber) {
