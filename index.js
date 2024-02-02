@@ -40,10 +40,10 @@ function createGitHubIssues() {
       const labels = issue['labels'].split(/,|\s|\n/).map(label => label.trim()).filter(label => label !== '');
       console.log(labels);
       console.log(typeof labels);
-      const generateTitle = (labels, duty, title, priority = '') => {
-        if ( !labels && !duty ) return `${title}`
-        if ( !labels ) return ` [${duty}] ${title}`
-        if ( !duty ) return ` [${labels}] ${title}`
+      const generateTitle = (labels = [], duty = [], title = '', priority = '') => {
+        if ( labels.length === 0 && duty.length === 0 ) return `${title}`
+        if ( labels.length === 0 ) return ` [${duty}] ${title}`
+        if ( duty.length === 0 ) return ` [${labels}] ${title}`
         if (labels.length > 1) return ` [${labels}] [${duty}] ${title}`
         return `[${duty}] ${title}`
       }
